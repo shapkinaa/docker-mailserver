@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Thomas VIAL
+MAINTAINER Andrey Shapkin
 
 # Packages
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing && \
