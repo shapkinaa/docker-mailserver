@@ -5,7 +5,7 @@ MAINTAINER Andrey Shapkin
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
-	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin spamassassin razor pyzor libsasl2-modules \
+	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin libsasl2-modules \
 	libnet-dns-perl libmail-spf-perl bzip2 file gzip p7zip unzip arj rsyslog \
     opendkim opendkim-tools opendmarc curl ed iptables && \
 	curl -sk http://neuro.debian.net/lists/trusty.de-m.libre > /etc/apt/sources.list.d/neurodebian.sources.list && \
@@ -21,7 +21,7 @@ ADD target/dovecot/auth-passwdfile.inc /etc/dovecot/conf.d/
 ADD target/dovecot/??-*.conf /etc/dovecot/conf.d/
 
 # Enables Spamassassin and CRON updates
-RUN sed -i -r 's/^(CRON|ENABLED)=0/\1=1/g' /etc/default/spamassassin
+# RUN sed -i -r 's/^(CRON|ENABLED)=0/\1=1/g' /etc/default/spamassassin
 
 # Enables Amavis
 # RUN sed -i -r 's/#(@|   \\%)bypass/\1bypass/g' /etc/amavis/conf.d/15-content_filter_mode
@@ -38,8 +38,8 @@ RUN sed -i -r 's/^(CRON|ENABLED)=0/\1=1/g' /etc/default/spamassassin
 # RUN chmod 644 /etc/clamav/freshclam.conf && freshclam
 
 # Enables Pyzor and Razor
-USER amavis
-RUN razor-admin -create && razor-admin -register && pyzor discover
+# USER amavis
+# RUN razor-admin -create && razor-admin -register && pyzor discover
 USER root
 
 # Configure DKIM (opendkim)
