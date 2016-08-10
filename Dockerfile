@@ -24,18 +24,18 @@ ADD target/dovecot/??-*.conf /etc/dovecot/conf.d/
 RUN sed -i -r 's/^(CRON|ENABLED)=0/\1=1/g' /etc/default/spamassassin
 
 # Enables Amavis
-RUN sed -i -r 's/#(@|   \\%)bypass/\1bypass/g' /etc/amavis/conf.d/15-content_filter_mode
-RUN adduser clamav amavis && adduser amavis clamav
-RUN useradd -u 5000 -d /home/docker -s /bin/bash -p $(echo docker | openssl passwd -1 -stdin) docker
+# RUN sed -i -r 's/#(@|   \\%)bypass/\1bypass/g' /etc/amavis/conf.d/15-content_filter_mode
+# RUN adduser clamav amavis && adduser amavis clamav
+# RUN useradd -u 5000 -d /home/docker -s /bin/bash -p $(echo docker | openssl passwd -1 -stdin) docker
 
 # Configure Fail2ban
-ADD target/fail2ban/jail.conf /etc/fail2ban/jail.conf
-ADD target/fail2ban/filter.d/dovecot.conf /etc/fail2ban/filter.d/dovecot.conf
-RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
+# ADD target/fail2ban/jail.conf /etc/fail2ban/jail.conf
+# ADD target/fail2ban/filter.d/dovecot.conf /etc/fail2ban/filter.d/dovecot.conf
+# RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
 
 # Enables Clamav
-RUN (crontab; echo "0 0,6,12,18 * * * /usr/bin/freshclam --quiet") | sort - | uniq - | crontab -
-RUN chmod 644 /etc/clamav/freshclam.conf && freshclam
+# RUN (crontab; echo "0 0,6,12,18 * * * /usr/bin/freshclam --quiet") | sort - | uniq - | crontab -
+# RUN chmod 644 /etc/clamav/freshclam.conf && freshclam
 
 # Enables Pyzor and Razor
 USER amavis
