@@ -5,9 +5,9 @@ MAINTAINER Andrey Shapkin
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
-	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin amavisd-new spamassassin razor pyzor libsasl2-modules \
-	clamav clamav-daemon libnet-dns-perl libmail-spf-perl bzip2 file gzip p7zip unzip arj rsyslog \
-    opendkim opendkim-tools opendmarc curl fail2ban ed iptables && \
+	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin spamassassin razor pyzor libsasl2-modules \
+	libnet-dns-perl libmail-spf-perl bzip2 file gzip p7zip unzip arj rsyslog \
+    opendkim opendkim-tools opendmarc curl ed iptables && \
 	curl -sk http://neuro.debian.net/lists/trusty.de-m.libre > /etc/apt/sources.list.d/neurodebian.sources.list && \
 	apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9 && \
 	apt-get update -q --fix-missing && apt-get -y upgrade fail2ban && \
