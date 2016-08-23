@@ -61,6 +61,7 @@ RUN sed -i -r "/^#?compress/c\compress\ncopytruncate" /etc/logrotate.conf && \
   sed -i -r 's|/var/log/mail|/var/log/mail/mail|g' /etc/logrotate.d/rsyslog
 
 # Get LetsEncrypt signed certificate
+RUN mkdir -p /etc/ssl/certs
 RUN curl -s https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x1-cross-signed.pem
 RUN curl -s https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x2-cross-signed.pem
 
