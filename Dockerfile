@@ -5,12 +5,12 @@ MAINTAINER Thomas VIAL
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -q --fix-missing && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
-	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin amavisd-new libsasl2-modules \
+	postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-managesieved gamin libsasl2-modules \
 	libnet-dns-perl libmail-spf-perl bzip2 file gzip p7zip unzip arj rsyslog \
     opendkim opendkim-tools opendmarc curl ed iptables && \
 	curl -sk http://neuro.debian.net/lists/trusty.de-m.libre > /etc/apt/sources.list.d/neurodebian.sources.list && \
 	apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9 && \
-	apt-get update -q --fix-missing && apt-get -y upgrade fail2ban && \
+	apt-get update -q --fix-missing && \
     apt-get autoclean && rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/locale/* && rm -rf /usr/share/man/* && rm -rf /usr/share/doc/*
 
@@ -61,8 +61,8 @@ RUN sed -i -r "/^#?compress/c\compress\ncopytruncate" /etc/logrotate.conf && \
   sed -i -r 's|/var/log/mail|/var/log/mail/mail|g' /etc/logrotate.d/rsyslog
 
 # Get LetsEncrypt signed certificate
-RUN curl -s https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x1-cross-signed.pem && \
-  curl -s https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x2-cross-signed.pem
+RUN curl -s https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x1-cross-signed.pem
+RUN curl -s https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.pem > /etc/ssl/certs/lets-encrypt-x2-cross-signed.pem
 
 # Start-mailserver script
 ADD target/bin/generate-ssl-certificate target/bin/generate-dkim-config target/bin/addmailuser target/bin/delmailuser target/start-mailserver.sh /usr/local/bin/
